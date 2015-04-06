@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FB5C4F11AD32CDA002FCE99 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5C4F01AD32CDA002FCE99 /* Tweet.m */; };
 		2FFC7AFB1ACF510000370376 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7AFA1ACF510000370376 /* main.m */; };
 		2FFC7AFE1ACF510000370376 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7AFD1ACF510000370376 /* AppDelegate.m */; };
-		2FFC7B011ACF510000370376 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7B001ACF510000370376 /* ViewController.m */; };
 		2FFC7B041ACF510000370376 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FFC7B021ACF510000370376 /* Main.storyboard */; };
 		2FFC7B061ACF510000370376 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FFC7B051ACF510000370376 /* Images.xcassets */; };
 		2FFC7B091ACF510000370376 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FFC7B071ACF510000370376 /* LaunchScreen.xib */; };
 		2FFC7B151ACF510000370376 /* TwitterAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7B141ACF510000370376 /* TwitterAppTests.m */; };
+		2FFC7B201ACF538C00370376 /* TweetListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7B1F1ACF538C00370376 /* TweetListTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +28,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2FB5C4EF1AD32CDA002FCE99 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
+		2FB5C4F01AD32CDA002FCE99 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		2FFC7AF51ACF510000370376 /* TwitterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FFC7AF91ACF510000370376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FFC7AFA1ACF510000370376 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2FFC7AFC1ACF510000370376 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2FFC7AFD1ACF510000370376 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2FFC7AFF1ACF510000370376 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2FFC7B001ACF510000370376 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2FFC7B031ACF510000370376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2FFC7B051ACF510000370376 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2FFC7B081ACF510000370376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2FFC7B0E1ACF510000370376 /* TwitterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FFC7B131ACF510000370376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FFC7B141ACF510000370376 /* TwitterAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwitterAppTests.m; sourceTree = "<group>"; };
+		2FFC7B1E1ACF538C00370376 /* TweetListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetListTableViewController.h; sourceTree = "<group>"; };
+		2FFC7B1F1ACF538C00370376 /* TweetListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetListTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,12 +86,14 @@
 			children = (
 				2FFC7AFC1ACF510000370376 /* AppDelegate.h */,
 				2FFC7AFD1ACF510000370376 /* AppDelegate.m */,
-				2FFC7AFF1ACF510000370376 /* ViewController.h */,
-				2FFC7B001ACF510000370376 /* ViewController.m */,
+				2FB5C4EF1AD32CDA002FCE99 /* Tweet.h */,
+				2FB5C4F01AD32CDA002FCE99 /* Tweet.m */,
 				2FFC7B021ACF510000370376 /* Main.storyboard */,
 				2FFC7B051ACF510000370376 /* Images.xcassets */,
 				2FFC7B071ACF510000370376 /* LaunchScreen.xib */,
 				2FFC7AF81ACF510000370376 /* Supporting Files */,
+				2FFC7B1E1ACF538C00370376 /* TweetListTableViewController.h */,
+				2FFC7B1F1ACF538C00370376 /* TweetListTableViewController.m */,
 			);
 			path = TwitterApp;
 			sourceTree = "<group>";
@@ -219,9 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FFC7B011ACF510000370376 /* ViewController.m in Sources */,
+				2FFC7B201ACF538C00370376 /* TweetListTableViewController.m in Sources */,
 				2FFC7AFE1ACF510000370376 /* AppDelegate.m in Sources */,
 				2FFC7AFB1ACF510000370376 /* main.m in Sources */,
+				2FB5C4F11AD32CDA002FCE99 /* Tweet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +420,7 @@
 				2FFC7B1A1ACF510000370376 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2FFC7B1B1ACF510000370376 /* Build configuration list for PBXNativeTarget "TwitterAppTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +429,7 @@
 				2FFC7B1D1ACF510000370376 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

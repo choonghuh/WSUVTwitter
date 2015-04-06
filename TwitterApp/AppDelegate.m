@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Tweet.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +19,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     return YES;
+}
+
+- (NSMutableArray *)faketweets
+{
+    if(_faketweets==nil){
+        Tweet *firstTweet = [[Tweet alloc] init];
+        firstTweet.tweet_id=1;
+        firstTweet.isdeleted=NO;
+        firstTweet.tweet=@"I am Kanye West";
+        firstTweet.username=@"kanyewest";
+    }
+    return _faketweets;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

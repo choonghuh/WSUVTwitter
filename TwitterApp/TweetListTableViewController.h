@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TweetListTableViewController.h
 //  TwitterApp
 //
 //  Created by Choong Choong Huh Huh on 4/3/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface TweetListTableViewController : UITableViewController
 
 @end
-

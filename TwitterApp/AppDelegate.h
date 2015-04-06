@@ -11,7 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) NSMutableArray *tweets;
+@property (strong, nonatomic) NSMutableArray *faketweets;
 
 @end
 
