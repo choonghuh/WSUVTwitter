@@ -29,6 +29,8 @@
         firstTweet.isdeleted=NO;
         firstTweet.tweet=@"I am Kanye West";
         firstTweet.username=@"kanyewest";
+        
+        _faketweets=[[NSMutableArray alloc] initWithArray:@[firstTweet]];
     }
     return _faketweets;
 }

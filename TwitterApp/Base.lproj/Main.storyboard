@@ -7,7 +7,7 @@
         <!--Root View Controller-->
         <scene sceneID="QQy-vE-6vx">
             <objects>
-                <tableViewController id="yhk-5M-kh4" sceneMemberID="viewController">
+                <tableViewController id="yhk-5M-kh4" customClass="TweetListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9IC-tQ-Et0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,6 +30,7 @@
                         <barButtonItem key="rightBarButtonItem" title="+" id="RQB-7B-cJw"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="tweetTableView" destination="9IC-tQ-Et0" id="pjc-nn-sqm"/>
                         <segue destination="RgN-07-AUD" kind="presentation" identifier="addTweetSegue" id="fvE-l9-QYY"/>
                     </connections>
                 </tableViewController>
@@ -46,10 +47,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Lbx-F8-g1v">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tweetCell" textLabel="VWw-pq-Erh" style="IBUITableViewCellStyleDefault" id="Lbx-F8-g1v">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lbx-F8-g1v" id="xZE-vV-Z9a">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VWw-pq-Erh">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -78,7 +87,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RQy-Qg-Usg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="259" y="627"/>
+            <point key="canvasLocation" x="207" y="627"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="b3F-xg-fPC">

@@ -21,17 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     [[NSNotificationCenter defaultCenter]
      addObserverForName:@"TweetNotification" object:self queue:nil usingBlock:^(NSNotification *note) {
          [self.tweetTableView reloadData];
      }];
+    [self.tweetTableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,16 +35,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     return [appDelegate.tweets count];
