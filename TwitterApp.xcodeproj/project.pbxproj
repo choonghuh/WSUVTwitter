@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F9AE59E1AD48E6F00C8707C /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AE59D1AD48E6F00C8707C /* TweetTableViewCell.m */; };
 		2FB5C4F11AD32CDA002FCE99 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB5C4F01AD32CDA002FCE99 /* Tweet.m */; };
 		2FFC7AFB1ACF510000370376 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7AFA1ACF510000370376 /* main.m */; };
 		2FFC7AFE1ACF510000370376 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFC7AFD1ACF510000370376 /* AppDelegate.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F9AE59C1AD48E6F00C8707C /* TweetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetTableViewCell.h; sourceTree = "<group>"; };
+		2F9AE59D1AD48E6F00C8707C /* TweetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetTableViewCell.m; sourceTree = "<group>"; };
 		2FB5C4EF1AD32CDA002FCE99 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		2FB5C4F01AD32CDA002FCE99 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		2FFC7AF51ACF510000370376 /* TwitterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +97,8 @@
 				2FFC7AF81ACF510000370376 /* Supporting Files */,
 				2FFC7B1E1ACF538C00370376 /* TweetListTableViewController.h */,
 				2FFC7B1F1ACF538C00370376 /* TweetListTableViewController.m */,
+				2F9AE59C1AD48E6F00C8707C /* TweetTableViewCell.h */,
+				2F9AE59D1AD48E6F00C8707C /* TweetTableViewCell.m */,
 			);
 			path = TwitterApp;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				2FFC7B201ACF538C00370376 /* TweetListTableViewController.m in Sources */,
 				2FFC7AFE1ACF510000370376 /* AppDelegate.m in Sources */,
 				2FFC7AFB1ACF510000370376 /* main.m in Sources */,
+				2F9AE59E1AD48E6F00C8707C /* TweetTableViewCell.m in Sources */,
 				2FB5C4F11AD32CDA002FCE99 /* Tweet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

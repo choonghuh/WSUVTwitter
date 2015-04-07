@@ -21,18 +21,19 @@
     return YES;
 }
 
-- (NSMutableArray *)faketweets
+- (NSMutableArray *)tweets
 {
-    if(_faketweets==nil){
+    if(_tweets==nil)
+    {
         Tweet *firstTweet = [[Tweet alloc] init];
         firstTweet.tweet_id=1;
         firstTweet.isdeleted=NO;
         firstTweet.tweet=@"I am Kanye West";
         firstTweet.username=@"kanyewest";
         
-        _faketweets=[[NSMutableArray alloc] initWithArray:@[firstTweet]];
+        _tweets=[[NSMutableArray alloc] initWithArray:@[firstTweet]];
     }
-    return _faketweets;
+    return _tweets;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

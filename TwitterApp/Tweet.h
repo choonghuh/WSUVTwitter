@@ -14,7 +14,7 @@
 @property NSString* username;
 @property BOOL isdeleted;
 @property NSString* tweet;
-//@property NSDate* date;
-//@property NSAttributedString* tweetAttributedString
+@property NSDate* date;
+@property NSAttributedString* tweetAttributedString;
 
 @end
