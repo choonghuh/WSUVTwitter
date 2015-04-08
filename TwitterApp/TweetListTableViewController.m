@@ -25,10 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"refreshControl = %@", self.refreshControl);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self refreshTweets];
+   [self refreshTweets];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,13 +83,11 @@
                  // Display AlertView with appropriate error message.
                  //
              }
-             [self.refreshControl endRefreshing];
+             //[self.refreshControl endRefreshing];
          }];
 }
-- (IBAction)refreshControl:(id)sender {
-    NSLog(@"Pulled");
-    [self refreshTweets];
-    
+- (IBAction)refresh:(id)sender {
+    NSLog(@"meh");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

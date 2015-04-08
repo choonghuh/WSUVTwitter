@@ -25,13 +25,13 @@
 {
     if(_tweets==nil)
     {
-        Tweet *firstTweet = [[Tweet alloc] init];
-        firstTweet.tweet_id=1;
-        firstTweet.isdeleted=NO;
-        firstTweet.tweet=@"I am Kanye West";
-        firstTweet.username=@"kanyewest";
-        
-        _tweets=[[NSMutableArray alloc] initWithArray:@[firstTweet]];
+//        Tweet *firstTweet = [[Tweet alloc] init];
+//        firstTweet.tweet_id=1;
+//        firstTweet.isdeleted=NO;
+//        firstTweet.tweet=@"I am Kanye West";
+//        firstTweet.username=@"kanyewest";
+//        
+        _tweets=[[NSMutableArray alloc] init]; //WithArray:@[firstTweet]];
     }
     return _tweets;
 }

@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Tweet Table-->
         <scene sceneID="QQy-vE-6vx">
             <objects>
-                <tableViewController id="yhk-5M-kh4" customClass="TweetListTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Tweet Table" id="yhk-5M-kh4" customClass="TweetListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9IC-tQ-Et0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,18 +37,18 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="hkn-by-4Z3">
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="nXa-7i-byV">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">
-                            <fragment content="refreshing tweets!!!">
+                            <fragment content="RERESH XXX!">
                                 <attributes>
                                     <font key="NSFont" metaFont="smallSystem"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
                         <connections>
-                            <action selector="refreshControl:" destination="yhk-5M-kh4" eventType="valueChanged" id="lsT-70-ezz"/>
+                            <action selector="refresh:" destination="yhk-5M-kh4" eventType="valueChanged" id="Hsi-hV-weX"/>
                         </connections>
                     </refreshControl>
                     <connections>
