@@ -10,11 +10,11 @@
 
 @interface Tweet : NSObject
 
-@property NSInteger tweet_id;
-@property NSString* username;
-@property BOOL isdeleted;
-@property NSString* tweet;
-@property NSDate* date;
-@property NSAttributedString* tweetAttributedString;
+@property (assign, nonatomic) NSInteger tweet_id;
+@property (copy, nonatomic) NSString* username;
+@property (assign, nonatomic) BOOL isdeleted;
+@property (copy, nonatomic) NSString* tweet;
+@property (assign, nonatomic) NSDate* date;
+@property (copy, nonatomic) NSAttributedString* tweetAttributedString;
 
 @end

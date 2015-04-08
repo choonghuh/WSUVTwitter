@@ -9,11 +9,15 @@
 #import "TweetListTableViewController.h"
 #import "AppDelegate.h"
 #import "Tweet.h"
+#import "AFNetworking.h"
+#import "AddTweetTableViewController.h"
 
+//#define BaseURLString @"https://bend.encs.vancouver.wsu.edu/~wcochran/cgi-bin"
+#define BaseURLString @"http://ezekiel.vancouver.wsu.edu/~cs458/cgi-bin"
 
 @interface TweetListTableViewController ()
 
-@property (weak,nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -21,18 +25,69 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
 
-    [[NSNotificationCenter defaultCenter]
-     addObserverForName:@"TweetNotification" object:self queue:nil usingBlock:^(NSNotification *note) {
-         [self.tableView reloadData];
-     }];
-    [self.tableView reloadData];
-
+-(void)viewDidAppear:(BOOL)animated{
+    [self refreshTweets];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)userOptionPressed:(id)sender {
+}
+
+-(void)refreshTweets {
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    
+    NSURL *baseURL = [NSURL URLWithString:BaseURLString];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSDictionary *params = @{@"date" : @""};
+    
+    [manager GET:@"get-tweets.cgi"
+      parameters:params
+         success: ^(NSURLSessionDataTask *task, id responseObject) {
+             NSMutableArray *arrayOfDicts = [responseObject objectForKey:@"tweets"];
+             
+             for (int i = 0; i < arrayOfDicts.count; i++) {
+                 Tweet *tweet = [[Tweet alloc] init];
+                 
+                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                 dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                 dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"PST"];
+                 tweet.date = [dateFormatter dateFromString:[[arrayOfDicts objectAtIndex:i] objectForKey:@"time_stamp"]];
+                 tweet.tweet_id = [[[arrayOfDicts objectAtIndex:i] objectForKey:@"tweet_id"] integerValue];
+                 tweet.tweet = [[arrayOfDicts objectAtIndex:i] objectForKey:@"tweet"];
+                 tweet.username = [[arrayOfDicts objectAtIndex:i] objectForKey:@"username"];
+                 tweet.isdeleted = [[arrayOfDicts objectAtIndex:i] objectForKey:@"isdeleted"];
+                 [appDelegate.tweets insertObject:tweet atIndex:0];
+             }
+             [self.tableView reloadData];
+             [self.refreshControl endRefreshing];
+         } failure:^(NSURLSessionDataTask *task, NSError *error) {
+             NSLog(@"failed");
+             if (error.code == NSURLErrorTimedOut) {
+                 //
+                 // Display alert for network timeout.
+                 //
+             } else {
+                 NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                 const int statuscode = response.statusCode;
+                 //
+                 // Display AlertView with appropriate error message.
+                 //
+             }
+             [self.refreshControl endRefreshing];
+         }];
+}
+- (IBAction)refreshControl:(id)sender {
+    NSLog(@"Pulled");
+    [self refreshTweets];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -103,14 +158,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if([segue.identifier isEqualToString:@"addTweetSegue"])
+    {
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        AddTweetTableViewController *addController = segue.destinationViewController;
+    }
 }
-*/
 
 @end

@@ -1,5 +1,5 @@
 //
-//  TweetTableViewCell.h
+//  AddTweetTableViewController.h
 //  TwitterApp
 //
 //  Created by Choong Choong Huh Huh on 4/7/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TweetTableViewCell : UITableViewCell
+@interface AddTweetTableViewController : UITableViewController
 
 @end
