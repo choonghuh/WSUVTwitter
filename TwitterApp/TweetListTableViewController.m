@@ -35,7 +35,157 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)loginUser:(NSString *)username WithPassword:(NSString *)password
+{
+    NSURL *baseURL = [NSURL URLWithString:BaseURLString];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSDictionary *params = @{@"username" : username,
+                             @"password" : password,
+                             @"action" : @"login"};
+    
+    [manager POST:@"login.cgi"
+       parameters:params
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              NSLog(@"register success@");
+          }
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              if (error.code==NSURLErrorTimedOut) {
+                  NSLog(@"timed out");
+              }
+              else{
+                  NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                  const int statuscode = (int)response.statusCode;
+                  if (statuscode==409) {
+                      NSLog(@"Username Already Exists");
+                  }
+              }
+              NSLog(@"register fail");
+          }];
+}
+
+- (void)registerUser:(NSString *)username WithPassword:(NSString *)password
+{
+    NSURL *baseURL = [NSURL URLWithString:BaseURLString];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    NSLog(@"%@ %@",username,password);
+    NSDictionary *params = @{@"username" : username,
+                             @"password" : password,
+                             @"action" : @"register"};
+    
+    [manager POST:@"register.cgi"
+       parameters:params
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              NSLog(@"register success");
+          }
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              NSLog(@"register fail");
+          }];
+    
+    // XXX Submit Register Request
+}
+
 - (IBAction)userOptionPressed:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"User Options"
+                                                                             message:@""
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    //=============================REGISTER===========================
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Register"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          
+                                                          UIAlertController *registerController =
+                                                          [UIAlertController alertControllerWithTitle:@"Register"
+                                                                                              message:@"Register with UID and password"
+                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                                                          
+                                                          [registerController
+                                                           addAction:[UIAlertAction actionWithTitle:@"Register"
+                                                                                              style:UIAlertActionStyleDefault
+                                                                                            handler:^(UIAlertAction *action) {
+                                                                                                UITextField *usernameTextField = registerController.textFields[0];
+                                                                                                UITextField *passwordTextField = registerController.textFields[1];
+                                                                                                NSString *username = usernameTextField.text;
+                                                                                                NSString *password = passwordTextField.text;
+                                                                                                
+                                                                                                // XXX Check for empty
+                                                                                                
+                                                                                                [self registerUser:username
+                                                                                                   WithPassword:password];
+                                                                                            }]];
+                                                          [registerController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                                                              style:UIAlertActionStyleCancel
+                                                                                                            handler:nil]];
+                                                          [registerController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                                                              textField.placeholder=@"username";
+                                                          }];
+                                                          [registerController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                                                              textField.placeholder=@"password";
+                                                              textField.secureTextEntry=YES;
+                                                          }];
+                                                          
+                                                          [self presentViewController:registerController animated:YES completion:nil];
+                                                      }]];
+
+    //================================LOGIN=================================
+    
+    [alertController
+        addAction:[UIAlertAction actionWithTitle:@"Login"
+                                           style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction *action){
+                                            
+                                            UIAlertController *loginController =
+                                                [UIAlertController alertControllerWithTitle:@"Login"
+                                                                                    message:@"Log In Here"
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+                                            [loginController
+                                             addAction:[UIAlertAction actionWithTitle:@"Login"
+                                                                                style:UIAlertActionStyleDefault
+                                                                              handler:^(UIAlertAction *action) {
+                                                                                  UITextField *usernameTextField = loginController.textFields[0];
+                                                                                  UITextField *passwordTextField = loginController.textFields[1];
+                                                                                  NSString *username = usernameTextField.text;
+                                                                                  NSString *password = passwordTextField.text;
+                                                                                  
+                                                                                  // XXX Check for empty
+                                                                                  
+                                                                                  [self loginUser:username
+                                                                                     WithPassword:password];
+                                                                              }]];
+                                            [loginController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                                                style:UIAlertActionStyleCancel
+                                                                                              handler:nil]];
+                                            [loginController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                                                textField.placeholder=@"username";
+                                            }];
+                                            [loginController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                                                textField.placeholder=@"password";
+                                                textField.secureTextEntry=YES;
+                                            }];
+                                            [self presentViewController:loginController animated:YES completion:nil];
+                                            
+                                                      }]];
+    
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          
+                                                      }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Reset Password" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          
+                                                      }]];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+                                                          
+                                                      }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil ];
 }
 
 -(void)refreshTweets {
@@ -46,10 +196,17 @@
     NSURL *baseURL = [NSURL URLWithString:BaseURLString];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    NSDictionary *params = @{@"date" : @""};
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"PST"];
+    NSDate *lastTweetDate = [appDelegate lastTweetDate];
+    NSString *dateStr = [dateFormatter stringFromDate:lastTweetDate];
+    NSDictionary *parameters = @{@"date" : dateStr};
+
     
     [manager GET:@"get-tweets.cgi"
-      parameters:params
+      parameters:parameters
          success: ^(NSURLSessionDataTask *task, id responseObject) {
              NSMutableArray *arrayOfDicts = [responseObject objectForKey:@"tweets"];
              
@@ -82,7 +239,9 @@
                  //
              }
              [self.refreshControl endRefreshing];
-         }];
+         }
+     ];
+    NSLog(@"Finished refreshTweets");
 }
 - (IBAction)refreshControl:(id)sender {
     NSLog(@"Pulled");

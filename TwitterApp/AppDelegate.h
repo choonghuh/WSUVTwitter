@@ -10,8 +10,13 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+- (NSDate *)lastTweetDate;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSMutableArray *tweets;
+@property (copy, nonatomic) NSString *loginUser;
+@property (copy, nonatomic) NSString *userPassword;
+@property (copy, nonatomic) NSString *session_token;
+@property (assign, nonatomic)BOOL loggedIn;
 
 @end
 

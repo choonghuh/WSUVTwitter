@@ -25,15 +25,32 @@
 {
     if(_tweets==nil)
     {
-        Tweet *firstTweet = [[Tweet alloc] init];
-        firstTweet.tweet_id=1;
-        firstTweet.isdeleted=NO;
-        firstTweet.tweet=@"I am Kanye West";
-        firstTweet.username=@"kanyewest";
-        
-        _tweets=[[NSMutableArray alloc] initWithArray:@[firstTweet]];
+        _tweets=[[NSMutableArray alloc] init];
     }
     return _tweets;
+}
+
+
+- (NSDate *)lastTweetDate
+{
+    if(self.tweets==nil)
+    {
+        NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:0];
+        return date;
+    }
+    else
+    {
+        if (self.tweets.count==0) {
+            NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:0];
+            return date;
+        }
+        else
+        {
+            NSLog(@"here");
+            
+            return [[_tweets objectAtIndex:0] valueForKey:@"date"];
+        }
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
