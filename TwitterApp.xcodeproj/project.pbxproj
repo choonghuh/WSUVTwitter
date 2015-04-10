@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F44DD831AD73A4C00142A2C /* SSKeychain.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F44DD7C1AD73A4C00142A2C /* SSKeychain.strings */; };
+		2F44DD841AD73A4C00142A2C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F44DD7E1AD73A4C00142A2C /* Info.plist */; };
+		2F44DD851AD73A4C00142A2C /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F44DD801AD73A4C00142A2C /* SSKeychain.m */; };
+		2F44DD861AD73A4C00142A2C /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F44DD821AD73A4C00142A2C /* SSKeychainQuery.m */; };
 		2F666A741AD4BABD0054B877 /* AddTweetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F666A731AD4BABD0054B877 /* AddTweetTableViewController.m */; };
 		2F9AE5C51AD498F400C8707C /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AE5A11AD498F400C8707C /* AFHTTPRequestOperation.m */; };
 		2F9AE5C61AD498F400C8707C /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AE5A31AD498F400C8707C /* AFHTTPRequestOperationManager.m */; };
@@ -46,6 +50,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F44DD7D1AD73A4C00142A2C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SSKeychain.strings; sourceTree = "<group>"; };
+		2F44DD7E1AD73A4C00142A2C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F44DD7F1AD73A4C00142A2C /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		2F44DD801AD73A4C00142A2C /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		2F44DD811AD73A4C00142A2C /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
+		2F44DD821AD73A4C00142A2C /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
 		2F666A721AD4BABD0054B877 /* AddTweetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTweetTableViewController.h; sourceTree = "<group>"; };
 		2F666A731AD4BABD0054B877 /* AddTweetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTweetTableViewController.m; sourceTree = "<group>"; };
 		2F9AE5A01AD498F400C8707C /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -119,6 +129,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F44DD7B1AD73A4C00142A2C /* SSKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				2F44DD7C1AD73A4C00142A2C /* SSKeychain.strings */,
+				2F44DD7E1AD73A4C00142A2C /* Info.plist */,
+				2F44DD7F1AD73A4C00142A2C /* SSKeychain.h */,
+				2F44DD801AD73A4C00142A2C /* SSKeychain.m */,
+				2F44DD811AD73A4C00142A2C /* SSKeychainQuery.h */,
+				2F44DD821AD73A4C00142A2C /* SSKeychainQuery.m */,
+			);
+			path = SSKeychain;
+			sourceTree = "<group>";
+		};
 		2F9AE59F1AD498F400C8707C /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +213,7 @@
 		2FFC7AF71ACF510000370376 /* TwitterApp */ = {
 			isa = PBXGroup;
 			children = (
+				2F44DD7B1AD73A4C00142A2C /* SSKeychain */,
 				2F9AE59F1AD498F400C8707C /* AFNetworking */,
 				2F9AE5B31AD498F400C8707C /* UIKit+AFNetworking */,
 				2FFC7AFC1ACF510000370376 /* AppDelegate.h */,
@@ -314,8 +338,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F44DD831AD73A4C00142A2C /* SSKeychain.strings in Resources */,
 				2FFC7B041ACF510000370376 /* Main.storyboard in Resources */,
 				2FFC7B091ACF510000370376 /* LaunchScreen.xib in Resources */,
+				2F44DD841AD73A4C00142A2C /* Info.plist in Resources */,
 				2FFC7B061ACF510000370376 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +364,7 @@
 				2F9AE5C51AD498F400C8707C /* AFHTTPRequestOperation.m in Sources */,
 				2F9AE5D11AD498F400C8707C /* UIButton+AFNetworking.m in Sources */,
 				2F9AE5C81AD498F400C8707C /* AFNetworkReachabilityManager.m in Sources */,
+				2F44DD861AD73A4C00142A2C /* SSKeychainQuery.m in Sources */,
 				2F9AE5D31AD498F400C8707C /* UIProgressView+AFNetworking.m in Sources */,
 				2F9AE5CD1AD498F400C8707C /* AFURLSessionManager.m in Sources */,
 				2F9AE5CB1AD498F400C8707C /* AFURLRequestSerialization.m in Sources */,
@@ -355,6 +382,7 @@
 				2F9AE5C71AD498F400C8707C /* AFHTTPSessionManager.m in Sources */,
 				2F666A741AD4BABD0054B877 /* AddTweetTableViewController.m in Sources */,
 				2F9AE5CF1AD498F400C8707C /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				2F44DD851AD73A4C00142A2C /* SSKeychain.m in Sources */,
 				2F9AE5CE1AD498F400C8707C /* AFNetworkActivityIndicatorManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +406,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2F44DD7C1AD73A4C00142A2C /* SSKeychain.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F44DD7D1AD73A4C00142A2C /* en */,
+			);
+			name = SSKeychain.strings;
+			sourceTree = "<group>";
+		};
 		2FFC7B021ACF510000370376 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

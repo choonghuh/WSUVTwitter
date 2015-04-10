@@ -7,30 +7,96 @@
 //
 
 #import "AddTweetTableViewController.h"
+#import "AppDelegate.h"
+#import "SSKeychain.h"
+#import "AFNetworking.h"
+
+//#define BaseURLString @"https://bend.encs.vancouver.wsu.edu/~wcochran/cgi-bin"
+#define BaseURLString @"http://ezekiel.vancouver.wsu.edu/~cs458/cgi-bin"
 
 @interface AddTweetTableViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+@property (weak, nonatomic) IBOutlet UILabel *wordCount;
 
 @end
 
 @implementation AddTweetTableViewController
 - (IBAction)donePressed:(id)sender {
     
-    NSLog(self.tweetTextView.text);
+    //XXX make sure logged in
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSURL *baseURL = [NSURL URLWithString:BaseURLString];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    
+    NSDictionary *params = @{@"username" : appDelegate.loginUser,
+                             @"session_token" : [SSKeychain passwordForService:@"kWazzuTwitterToken"
+                                                                       account:appDelegate.loginUser],
+                             @"tweet" : self.tweetTextView.text};
+    
+    [manager POST:@"add-tweet.cgi"
+       parameters:params
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              
+              [self.tweetTextView resignFirstResponder];
+              [self dismissViewControllerAnimated:YES completion:nil];
+
+          }
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              NSString *errorMessage =@"";
+              
+              if(error.code==NSURLErrorTimedOut)
+              {
+                  errorMessage = @"Timed Out";
+              }
+              else{
+                  const int statuscode = (int)response.statusCode;
+                  
+                  
+                  if (statuscode==404) {
+                      errorMessage = @"No Such Username";
+                  }
+                  else if(statuscode==400){
+                      errorMessage = @"Bad Request";
+                  }
+                  else if(statuscode==401)
+                  {
+                      errorMessage = @"Unauthorized";
+                  }
+                  else if(statuscode==500){
+                      errorMessage = @"Server Error";
+                  }
+                  
+              }
+              UIAlertController *failAlertController = [UIAlertController alertControllerWithTitle:@"Login Failed"
+                                                                                           message:errorMessage
+                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+              [failAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+              [self presentViewController:failAlertController animated:YES completion:nil];
+          }];
 }
 - (IBAction)cancelPressed:(id)sender {
     [self.tweetTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)textViewDidChange:(UITextView *)textView{
+    self.wordCount.text = [NSString stringWithFormat:@"%ld/140",self.tweetTextView.text.length];
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if (textView.text.length - range.length +text.length > 140) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tweetTextView.delegate = self;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -42,15 +108,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

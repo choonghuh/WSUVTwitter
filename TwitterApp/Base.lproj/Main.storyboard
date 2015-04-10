@@ -52,7 +52,9 @@
                         </connections>
                     </refreshControl>
                     <connections>
+                        <outlet property="addTweetButton" destination="RQB-7B-cJw" id="zyY-PJ-Anu"/>
                         <outlet property="tableView" destination="9IC-tQ-Et0" id="PaV-cJ-wGO"/>
+                        <outlet property="tweetTableController" destination="NiO-jD-AKX" id="Rnx-vE-Inw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FDv-Eg-k07" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -75,13 +77,28 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lbx-F8-g1v" id="xZE-vV-Z9a">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Go Mariners go" translatesAutoresizingMaskIntoConstraints="NO" id="Qp1-af-Ngy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="179"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000/140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDm-pQ-2ID">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qp1-af-Ngy">
+                                                    <rect key="frame" x="0.0" y="29" width="600" height="157"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fDm-pQ-2ID" firstAttribute="leading" secondItem="xZE-vV-Z9a" secondAttribute="leading" id="5Aw-jX-3OY"/>
+                                                <constraint firstAttribute="bottom" secondItem="Qp1-af-Ngy" secondAttribute="bottom" id="GeO-yy-NqR"/>
+                                                <constraint firstItem="Qp1-af-Ngy" firstAttribute="leading" secondItem="xZE-vV-Z9a" secondAttribute="leading" id="SfN-Tf-Kfc"/>
+                                                <constraint firstItem="fDm-pQ-2ID" firstAttribute="top" secondItem="xZE-vV-Z9a" secondAttribute="top" id="TlS-Wj-pWd"/>
+                                                <constraint firstItem="Qp1-af-Ngy" firstAttribute="top" secondItem="fDm-pQ-2ID" secondAttribute="bottom" constant="8" id="U2c-3q-G6o"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qp1-af-Ngy" secondAttribute="trailing" id="hOB-fj-c0u"/>
+                                                <constraint firstAttribute="trailing" secondItem="fDm-pQ-2ID" secondAttribute="trailing" id="nnv-GD-7Bl"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -106,11 +123,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tweetTextView" destination="Qp1-af-Ngy" id="3sL-vf-Vuy"/>
+                        <outlet property="wordCount" destination="fDm-pQ-2ID" id="Qpk-0g-6QW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxw-71-bRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="925" y="631"/>
+            <point key="canvasLocation" x="925" y="613"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ExD-Zb-nOb">

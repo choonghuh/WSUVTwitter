@@ -11,20 +11,27 @@
 #import "Tweet.h"
 #import "AFNetworking.h"
 #import "AddTweetTableViewController.h"
+#import "SSKeychain.h"
 
 //#define BaseURLString @"https://bend.encs.vancouver.wsu.edu/~wcochran/cgi-bin"
 #define BaseURLString @"http://ezekiel.vancouver.wsu.edu/~cs458/cgi-bin"
 
 @interface TweetListTableViewController ()
+@property (weak, nonatomic) IBOutlet UINavigationItem *tweetTableController;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addTweetButton;
 
 @end
 
 @implementation TweetListTableViewController
 
 - (void)viewDidLoad {
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [super viewDidLoad];
+    if (appDelegate.loginUser==nil) {
+        self.addTweetButton.enabled=NO;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -38,6 +45,7 @@
 
 - (void)loginUser:(NSString *)username WithPassword:(NSString *)password
 {
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSURL *baseURL = [NSURL URLWithString:BaseURLString];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -48,20 +56,100 @@
     [manager POST:@"login.cgi"
        parameters:params
           success:^(NSURLSessionDataTask *task, id responseObject) {
-              NSLog(@"register success@");
+              NSLog(@"Login success");
+
+              NSString *sessionToken=[responseObject objectForKey:@"session_token"];
+              [SSKeychain setPassword:password forService:@"kWazzuTwitterPassword" account:username];
+              [SSKeychain setPassword:sessionToken forService:@"kWazzuTwitterToken" account:username];
+              appDelegate.loginUser=username;
+              self.addTweetButton.enabled=YES;
+
           }
           failure:^(NSURLSessionDataTask *task, NSError *error) {
-              if (error.code==NSURLErrorTimedOut) {
-                  NSLog(@"timed out");
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              NSString *errorMessage =@"";
+              
+              if(error.code==NSURLErrorTimedOut)
+              {
+                  errorMessage = @"Timed Out";
               }
               else{
-                  NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
                   const int statuscode = (int)response.statusCode;
-                  if (statuscode==409) {
-                      NSLog(@"Username Already Exists");
+                  
+                  
+                  if (statuscode==404) {
+                      errorMessage = @"No Such Username";
                   }
+                  else if(statuscode==400){
+                      errorMessage = @"Bad Request";
+                  }
+                  else if(statuscode==401)
+                  {
+                      errorMessage = @"Unauthorized";
+                  }
+                  else if(statuscode==500){
+                      errorMessage = @"Server Error";
+                  }
+                  
               }
-              NSLog(@"register fail");
+              UIAlertController *failAlertController = [UIAlertController alertControllerWithTitle:@"Login Failed"
+                                                                                           message:errorMessage
+                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+              [failAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+              [self presentViewController:failAlertController animated:YES completion:nil];
+          }];
+}
+
+-(void)logoutUser:(NSString *)username
+{
+    NSURL *baseURL = [NSURL URLWithString:BaseURLString];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    
+    NSDictionary *params = @{@"username" : username,
+                             @"password" : [SSKeychain passwordForService:@"kWazzuTwitterPassword" account:username],
+                             @"action" : @"logout"};
+    
+    [manager POST:@"login.cgi"
+       parameters:params
+          success:^(NSURLSessionDataTask *task, id responseObject) {
+              self.tweetTableController.title=@"WSU-V Twitter";
+              self.addTweetButton.enabled=NO;
+          }
+          failure:^(NSURLSessionDataTask *task, NSError *error) {
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              NSString *errorMessage =@"";
+              
+              if(error.code==NSURLErrorTimedOut)
+              {
+                  errorMessage = @"Timed Out";
+              }
+              else{
+                  const int statuscode = (int)response.statusCode;
+                  
+                  
+                  if (statuscode==404) {
+                      errorMessage = @"No Such Username";
+                  }
+                  else if(statuscode==400){
+                      errorMessage = @"Bad Request";
+                  }
+                  else if(statuscode==401)
+                  {
+                      errorMessage = @"Unauthorized";
+                  }
+                  else if(statuscode==500){
+                      errorMessage = @"Server Error";
+                  }
+                  
+              }
+              UIAlertController *failAlertController = [UIAlertController alertControllerWithTitle:@"Login Failed"
+                                                                                           message:errorMessage
+                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+              [failAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+              [self presentViewController:failAlertController animated:YES completion:nil];
           }];
 }
 
@@ -70,8 +158,9 @@
     NSURL *baseURL = [NSURL URLWithString:BaseURLString];
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+
     
-    NSLog(@"%@ %@",username,password);
     NSDictionary *params = @{@"username" : username,
                              @"password" : password,
                              @"action" : @"register"};
@@ -80,18 +169,56 @@
        parameters:params
           success:^(NSURLSessionDataTask *task, id responseObject) {
               NSLog(@"register success");
+
+              NSString *sessionToken=[responseObject objectForKey:@"session_token"];
+              [SSKeychain setPassword:password forService:@"kWazzuTwitterPassword" account:username];
+              [SSKeychain setPassword:sessionToken forService:@"kWazzuTwitterToken" account:username];
+              appDelegate.loginUser=username;
+              self.tweetTableController.title=username;
+              self.addTweetButton.enabled=YES;
+
           }
           failure:^(NSURLSessionDataTask *task, NSError *error) {
-              NSLog(@"register fail");
-          }];
-    
-    // XXX Submit Register Request
+              NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+              NSString *errorMessage =@"";
+
+              if(error.code==NSURLErrorTimedOut)
+              {
+                  errorMessage = @"Timed Out";
+              }
+              else{
+                  const int statuscode = (int)response.statusCode;
+                  
+                  
+                  if (statuscode==409) {
+                      errorMessage = @"Username Already Exist";
+                  }
+                  else if(statuscode==400){
+                      errorMessage = @"Bad Request";
+                  }
+                  else if(statuscode==500){
+                      errorMessage = @"Server Error";
+                  }
+                  
+
+              }
+              UIAlertController *failAlertController = [UIAlertController alertControllerWithTitle:@"Register Failed"
+                                                                                           message:errorMessage
+                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+              [failAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+              [self presentViewController:failAlertController animated:YES completion:nil];
+          }
+     
+      ];
 }
 
 - (IBAction)userOptionPressed:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"User Options"
                                                                              message:@""
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+
     //=============================REGISTER===========================
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Register"
@@ -173,11 +300,7 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
-                                                          
-                                                      }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Reset Password" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          
+                                                          [self logoutUser: appDelegate.loginUser];
                                                       }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
@@ -241,7 +364,6 @@
              [self.refreshControl endRefreshing];
          }
      ];
-    NSLog(@"Finished refreshTweets");
 }
 - (IBAction)refreshControl:(id)sender {
     NSLog(@"Pulled");
@@ -317,16 +439,5 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-    if([segue.identifier isEqualToString:@"addTweetSegue"])
-    {
-        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        AddTweetTableViewController *addController = segue.destinationViewController;
-    }
-}
 
 @end
